@@ -28,10 +28,6 @@ class SecurityConfig {
             .anyRequest()
             .authenticated()
 
-            .and()
-            .csrf()
-            .disable()
-
         return httpSecurity.build()
     }
 

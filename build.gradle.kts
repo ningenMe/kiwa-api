@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.openapitools.generator.gradle.plugin.tasks.GenerateTask
 
 plugins {
     id("org.springframework.boot") version "3.0.4"
@@ -55,7 +56,8 @@ tasks {
     }
 }
 
-openApiGenerate {
+tasks.register("kotlinSpringServerGenerate", GenerateTask::class) {
+    group="openapi tools"
     generatorName.set("kotlin-spring")
     inputSpec.set("$rootDir/openapi/openapi.yaml")
     outputDir.set("$rootDir")
@@ -76,3 +78,17 @@ openApiGenerate {
         )
     )
 }
+tasks.register("typescriptClientGenerate", GenerateTask::class) {
+    group="openapi tools"
+    generatorName.set("typescript-fetch")
+    inputSpec.set("$rootDir/openapi/openapi.yaml")
+    outputDir.set("$rootDir/client")
+    invokerPackage.set("ningenme.net.kiwaapi.application.generated")
+
+    configOptions.set(
+        mutableMapOf(
+            "useTags" to "true",
+        )
+    )
+}
+

@@ -3,6 +3,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     id("org.springframework.boot") version "3.0.4"
     id("io.spring.dependency-management") version "1.1.0"
+    id("org.openapi.generator") version "5.3.1"
     kotlin("jvm") version "1.7.22"
     kotlin("plugin.spring") version "1.7.22"
 }
@@ -23,6 +24,11 @@ dependencies {
 
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
+
+    //openapi
+    implementation("javax.validation:validation-api:2.0.1.Final")
+    implementation("org.openapitools:jackson-databind-nullable:0.2.2")
+
 //    implementation("org.springframework.session:spring-session-data-redis:3.0.0")
 //    implementation("io.lettuce:lettuce-core:6.2.3.RELEASE")
 
@@ -46,4 +52,25 @@ tasks {
         archiveBaseName.set(rootProject.name)
         launchScript()
     }
+}
+
+openApiGenerate {
+    generatorName.set("kotlin-spring")
+    inputSpec.set("$rootDir/openapi/openapi.yaml")
+    outputDir.set("$rootDir")
+    apiPackage.set("ningenme.net.kiwaapi.application.generated.controller")
+    modelPackage.set("ningenme.net.kiwaapi.application.generated.view")
+    modelNameSuffix.set("view")
+    generateModelTests.set(false)
+    generateApiTests.set(false)
+    generateModelDocumentation.set(false)
+    generateApiDocumentation.set(false)
+    configOptions.set(
+        mutableMapOf(
+            "dateLibrary" to "java8",
+            "interfaceOnly" to "true",
+            "skipDefaultInterface" to "true",
+            "useTags" to "true"
+        )
+    )
 }

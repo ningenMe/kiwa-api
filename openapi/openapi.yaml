@@ -1,0 +1,11 @@
+openapi: 3.0.0
+info:
+  title: net-api
+  description: api created by ningenme
+  version: 1.0.0
+servers:
+  - url: https://api.ningenme.net
+paths:
+  /healthcheck:
+    $ref: './paths/Healthcheck.yaml'
+

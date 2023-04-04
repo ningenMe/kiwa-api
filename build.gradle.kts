@@ -3,7 +3,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     id("org.springframework.boot") version "3.0.4"
     id("io.spring.dependency-management") version "1.1.0"
-    id("org.openapi.generator") version "5.3.1"
+    id("org.openapi.generator") version "6.5.0"
     kotlin("jvm") version "1.7.22"
     kotlin("plugin.spring") version "1.7.22"
 }
@@ -26,8 +26,9 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect")
 
     //openapi
-    implementation("javax.validation:validation-api:2.0.1.Final")
-    implementation("org.openapitools:jackson-databind-nullable:0.2.2")
+    compileOnly("io.swagger.core.v3:swagger-annotations:2.2.8")
+    compileOnly("io.swagger.core.v3:swagger-models:2.2.8")
+    implementation("jakarta.validation:jakarta.validation-api:3.0.2")
 
 //    implementation("org.springframework.session:spring-session-data-redis:3.0.0")
 //    implementation("io.lettuce:lettuce-core:6.2.3.RELEASE")
@@ -70,7 +71,8 @@ openApiGenerate {
             "dateLibrary" to "java8",
             "interfaceOnly" to "true",
             "skipDefaultInterface" to "true",
-            "useTags" to "true"
+            "useTags" to "true",
+            "useSpringBoot3" to "true"
         )
     )
 }

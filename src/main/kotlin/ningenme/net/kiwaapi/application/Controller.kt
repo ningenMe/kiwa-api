@@ -15,12 +15,6 @@ class Controller(
     private val passwordEncoder: PasswordEncoder
 ) {
 
-
-    @GetMapping("/healthcheck")
-    fun healthcheckGet(): ResponseEntity<String> {
-        return ResponseEntity.ok("ok");
-    }
-
     @PostMapping("/users")
     fun userPost(
         @RequestBody userPostRequestView: UserPostRequestView

@@ -1,0 +1,12 @@
+get:
+  tags:
+    - healthcheck
+  parameters: [ ]
+  operationId: healthGet
+  responses:
+    '200':
+      description: ok
+      content:
+        application/json:
+          schema:
+            $ref: '../responses/HealthcheckGetResponse.yaml'

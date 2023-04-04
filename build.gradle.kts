@@ -83,7 +83,6 @@ tasks.register("typescriptClientGenerate", GenerateTask::class) {
     generatorName.set("typescript-fetch")
     inputSpec.set("$rootDir/openapi/openapi.yaml")
     outputDir.set("$rootDir/client")
-    invokerPackage.set("ningenme.net.kiwaapi.application.generated")
 
     configOptions.set(
         mutableMapOf(

@@ -32,7 +32,7 @@ runs:
         gradle-version: ${{ inputs.gradle-version }}
     - id: image-build
       name: image build
-      run: docker build -t ${{ inputs.aws-ecr-registry }}/${{ inputs.aws-ecr-repository }}:latest ./zeus/${{inputs.project-name}}
+      run: docker build -t ${{ inputs.aws-ecr-registry }}/${{ inputs.aws-ecr-repository }}:latest .
       shell: bash
     - id: configure-aws-credentials
       name: configure aws credentials

@@ -20,13 +20,13 @@ runs:
   steps:
     - id: setup-java
       name: setup java
-      uses: actions/setup-java@v3.2.0
+      uses: actions/setup-java@v3.11.0
       with:
         java-version: ${{ inputs.java-version }}
         distribution: ${{ inputs.java-distribution }}
     - id: gradle-build
       name: gradle build
-      uses: gradle/gradle-build-action@v2.1.5
+      uses: gradle/gradle-build-action@v2.4.0
       with:
         arguments: clean build -x test
         gradle-version: ${{ inputs.gradle-version }}

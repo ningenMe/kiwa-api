@@ -13,9 +13,9 @@ runs:
   using: composite
   steps:
     - id: constant
-      run: |
-        echo "::set-output name=java-version::17"
-        echo "::set-output name=java-distribution::temurin"
-        echo "::set-output name=gradle-version::7.4.2"
-        echo "::set-output name=aws-region::ap-northeast-1"
+      run: |        
+        echo "java-version=17" >> $GITHUB_OUTPUT
+        echo "java-distribution=temurin" >> $GITHUB_OUTPUT
+        echo "gradle-version=7.4.2" >> $GITHUB_OUTPUT
+        echo "aws-region=ap-northeast-1" >> $GITHUB_OUTPUT
       shell: bash

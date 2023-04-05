@@ -9,6 +9,9 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.security.web.SecurityFilterChain
+import org.springframework.web.cors.CorsConfiguration
+import org.springframework.web.cors.CorsConfigurationSource
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource
 
 @Configuration
 @EnableWebSecurity
@@ -28,7 +31,20 @@ class SecurityConfig {
             .anyRequest()
             .authenticated()
 
+            .and()
+            .cors()
+
         return httpSecurity.build()
+    }
+
+    @Bean
+    fun corsConfigurationSource(): CorsConfigurationSource {
+        val corsConfiguration = CorsConfiguration()
+        corsConfiguration.allowedOrigins = listOf("https://ningenme.net")
+        corsConfiguration.allowedMethods = listOf("GET","POST")
+        val urlBasedCorsConfigurationSource = UrlBasedCorsConfigurationSource()
+        urlBasedCorsConfigurationSource.registerCorsConfiguration("/**", corsConfiguration)
+        return urlBasedCorsConfigurationSource
     }
 
     @Bean

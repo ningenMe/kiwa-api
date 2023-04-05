@@ -1,6 +1,9 @@
-apis/HealthcheckApi.ts
-apis/index.ts
+.gitignore
+.npmignore
+.openapi-generator-ignore
+api.ts
+base.ts
+common.ts
+configuration.ts
+git_push.sh
 index.ts
-models/HealthcheckGetResponse.ts
-models/index.ts
-runtime.ts

@@ -80,7 +80,7 @@ tasks.register("kotlinSpringServerGenerate", GenerateTask::class) {
 }
 tasks.register("typescriptClientGenerate", GenerateTask::class) {
     group="openapi tools"
-    generatorName.set("typescript-fetch")
+    generatorName.set("typescript-axios")
     inputSpec.set("$rootDir/openapi/openapi.yaml")
     outputDir.set("$rootDir/client")
 

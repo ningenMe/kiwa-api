@@ -8,4 +8,10 @@ servers:
 paths:
   /healthcheck:
     $ref: './paths/Healthcheck.yaml'
-
+  /users:
+    $ref: './paths/Users.yaml'
+# TODO
+# POST /users
+# POST /login
+# GET /users/me
+# POST /logout

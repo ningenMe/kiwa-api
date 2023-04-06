@@ -1,5 +1,8 @@
 src/main/kotlin/ningenme/net/kiwaapi/application/generated/controller/ApiUtil.kt
 src/main/kotlin/ningenme/net/kiwaapi/application/generated/controller/Exceptions.kt
 src/main/kotlin/ningenme/net/kiwaapi/application/generated/controller/HealthcheckApi.kt
+src/main/kotlin/ningenme/net/kiwaapi/application/generated/controller/UsersApi.kt
 src/main/kotlin/ningenme/net/kiwaapi/application/generated/view/HealthcheckGetResponseView.kt
+src/main/kotlin/ningenme/net/kiwaapi/application/generated/view/UsersPostRequestView.kt
+src/main/kotlin/ningenme/net/kiwaapi/application/generated/view/UsersPostResponseView.kt
 src/main/kotlin/org/openapitools/SpringDocConfiguration.kt

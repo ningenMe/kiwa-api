@@ -3,7 +3,7 @@ version: '3'
 services:
   auth-mysql:
     image: mysql:8.0
-    container_name: mysql
+    container_name: mysql-auth
     environment:
       MYSQL_DATABASE: auth
       MYSQL_ROOT_PASSWORD: password

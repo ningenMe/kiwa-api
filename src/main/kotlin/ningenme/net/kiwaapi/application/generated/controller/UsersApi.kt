@@ -5,7 +5,8 @@
 */
 package ningenme.net.kiwaapi.application.generated.controller
 
-import ningenme.net.kiwaapi.application.generated.view.HealthcheckGetResponseView
+import ningenme.net.kiwaapi.application.generated.view.UsersPostRequestView
+import ningenme.net.kiwaapi.application.generated.view.UsersPostResponseView
 import io.swagger.v3.oas.annotations.*
 import io.swagger.v3.oas.annotations.enums.*
 import io.swagger.v3.oas.annotations.media.*
@@ -35,20 +36,21 @@ import kotlin.collections.Map
 
 @Validated
 @RequestMapping("\${api.base-path:}")
-interface HealthcheckApi {
+interface UsersApi {
 
     @Operation(
         summary = "",
-        operationId = "healthcheckGet",
+        operationId = "usersPost",
         description = """""",
         responses = [
-            ApiResponse(responseCode = "200", description = "ok", content = [Content(schema = Schema(implementation = HealthcheckGetResponseView::class))])
+            ApiResponse(responseCode = "200", description = "ok", content = [Content(schema = Schema(implementation = UsersPostResponseView::class))])
         ]
     )
     @RequestMapping(
-            method = [RequestMethod.GET],
-            value = ["/healthcheck"],
-            produces = ["application/json"]
+            method = [RequestMethod.POST],
+            value = ["/users"],
+            produces = ["application/json"],
+            consumes = ["application/json"]
     )
-    fun healthcheckGet(): ResponseEntity<HealthcheckGetResponseView>
+    fun usersPost(@Parameter(description = "", required = true) @Valid @RequestBody usersPostRequestView: UsersPostRequestView): ResponseEntity<UsersPostResponseView>
 }

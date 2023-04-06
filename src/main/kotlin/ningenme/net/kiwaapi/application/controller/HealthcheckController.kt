@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 class HealthcheckController : HealthcheckApi {
 
-    override fun healthGet(): ResponseEntity<HealthcheckGetResponseView> {
+    override fun healthcheckGet(): ResponseEntity<HealthcheckGetResponseView> {
         return ResponseEntity.ok(
             HealthcheckGetResponseView(
                 message = "ok"

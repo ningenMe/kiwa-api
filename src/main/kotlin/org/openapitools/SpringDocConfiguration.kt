@@ -19,7 +19,7 @@ class SpringDocConfiguration {
         return OpenAPI()
             .info(
                 Info()
-                    .title("net-api")
+                    .title("kiwa-api")
                     .description("api created by ningenme")
                     .version("1.0.0")
             )

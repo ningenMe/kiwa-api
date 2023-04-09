@@ -1,5 +1,6 @@
 package ningenme.net.kiwaapi.application.common
 
+import com.fasterxml.jackson.databind.ObjectMapper
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.HttpMethod
@@ -20,8 +21,10 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource
 @EnableMethodSecurity
 class SecurityConfig(
     private val customAuthenticationFailureHandler: CustomAuthenticationFailureHandler,
+    private val customAuthenticationSuccessHandler: CustomAuthenticationSuccessHandler,
     private val customAuthenticationUserService: CustomAuthenticationUserService,
-    private val authenticationConfiguration: AuthenticationConfiguration
+    private val authenticationConfiguration: AuthenticationConfiguration,
+    private val objectMapper: ObjectMapper
 ) {
 
     @Bean
@@ -56,9 +59,10 @@ class SecurityConfig(
     }
 
     fun customAuthenticationFilter(): CustomAuthenticationFilter {
-        val customAuthenticationFilter = CustomAuthenticationFilter()
+        val customAuthenticationFilter = CustomAuthenticationFilter(objectMapper)
         customAuthenticationFilter.setAuthenticationManager(authenticationConfiguration.authenticationManager)
         customAuthenticationFilter.setAuthenticationFailureHandler(customAuthenticationFailureHandler)
+        customAuthenticationFilter.setAuthenticationSuccessHandler(customAuthenticationSuccessHandler)
         return customAuthenticationFilter
     }
 

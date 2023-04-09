@@ -1,0 +1,18 @@
+post:
+  tags:
+    - login
+  parameters: [ ]
+  operationId: loginPost
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: '../requests/LoginPostRequest.yaml'
+  responses:
+    '200':
+      description: ok
+      content:
+        application/json:
+          schema:
+            $ref: '../responses/LoginPostResponse.yaml'

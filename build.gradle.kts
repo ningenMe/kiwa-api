@@ -57,7 +57,7 @@ tasks {
 }
 
 tasks.register("kotlinSpringServerGenerate", GenerateTask::class) {
-    group="openapi tools"
+    group = "openapi tools"
     generatorName.set("kotlin-spring")
     inputSpec.set("$rootDir/openapi/openapi.yaml")
     outputDir.set("$rootDir")
@@ -79,7 +79,7 @@ tasks.register("kotlinSpringServerGenerate", GenerateTask::class) {
     )
 }
 tasks.register("typescriptClientGenerate", GenerateTask::class) {
-    group="openapi tools"
+    group = "openapi tools"
     generatorName.set("typescript-axios")
     inputSpec.set("$rootDir/openapi/openapi.yaml")
     outputDir.set("$rootDir/client")

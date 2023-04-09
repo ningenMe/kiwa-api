@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.security.web.SecurityFilterChain
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository
 import org.springframework.web.cors.CorsConfiguration
 import org.springframework.web.cors.CorsConfigurationSource
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource
@@ -34,6 +35,11 @@ class SecurityConfig {
             .and()
             .cors()
 
+            .and()
+            .csrf()
+            .disable()
+
+
         return httpSecurity.build()
     }
 
@@ -41,7 +47,7 @@ class SecurityConfig {
     fun corsConfigurationSource(): CorsConfigurationSource {
         val corsConfiguration = CorsConfiguration()
         corsConfiguration.allowedOrigins = listOf("https://ningenme.net")
-        corsConfiguration.allowedMethods = listOf("GET","POST")
+        corsConfiguration.allowedMethods = listOf("GET", "POST")
         val urlBasedCorsConfigurationSource = UrlBasedCorsConfigurationSource()
         urlBasedCorsConfigurationSource.registerCorsConfiguration("/**", corsConfiguration)
         return urlBasedCorsConfigurationSource

@@ -17,6 +17,8 @@ class CustomAuthenticationSuccessHandler : AuthenticationSuccessHandler {
     ) {
         val (sessionId, cookie) = SessionId.of()
 
+        //TODO sessionIdをredisに永続化
+
         response?.addCookie(cookie)
         response?.status = HttpStatus.OK.value()
     }

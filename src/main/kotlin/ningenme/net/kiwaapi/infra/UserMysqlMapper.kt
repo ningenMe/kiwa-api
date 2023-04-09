@@ -2,6 +2,7 @@ package ningenme.net.kiwaapi.infra
 
 import org.apache.ibatis.annotations.Insert
 import org.apache.ibatis.annotations.Mapper
+import org.apache.ibatis.annotations.Select
 
 @Mapper
 interface UserMysqlMapper {
@@ -11,4 +12,9 @@ interface UserMysqlMapper {
                 "VALUES (#{userId},#{encryptedPassword})"
     )
     fun insert(userMysqlDto: UserMysqlDto)
+
+    @Select(
+        "SELECT user_id, encrypted_password FROM user WHERE user_id = #{userId} "
+    )
+    fun select(userId: String): UserMysqlDto
 }

@@ -9,4 +9,8 @@ class UserMysqlRepository(private val userMysqlMapper: UserMysqlMapper) {
         userMysqlMapper.insert(UserMysqlDto(userId, encryptedPassword))
     }
 
+    fun getUser(userId: String): UserMysqlDto? {
+        return userMysqlMapper.select(userId)
+    }
+
 }

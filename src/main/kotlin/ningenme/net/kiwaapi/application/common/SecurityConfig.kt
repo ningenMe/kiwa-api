@@ -27,6 +27,10 @@ class SecurityConfig(
     private val objectMapper: ObjectMapper
 ) {
 
+    companion object {
+        const val DOMAIN = "ningenme.net"
+    }
+
     @Bean
     fun securityFilterChain(httpSecurity: HttpSecurity): SecurityFilterChain {
         httpSecurity
@@ -75,8 +79,8 @@ class SecurityConfig(
 
     fun corsConfigurationSource(): CorsConfigurationSource {
         val corsConfiguration = CorsConfiguration()
-        corsConfiguration.allowedOrigins = listOf("https://ningenme.net")
-        corsConfiguration.allowedMethods = listOf("GET", "POST")
+        corsConfiguration.allowedOrigins = listOf("https://$DOMAIN")
+        corsConfiguration.allowedMethods = listOf(HttpMethod.GET.name(), HttpMethod.POST.name())
         val urlBasedCorsConfigurationSource = UrlBasedCorsConfigurationSource()
         urlBasedCorsConfigurationSource.registerCorsConfiguration("/**", corsConfiguration)
         return urlBasedCorsConfigurationSource

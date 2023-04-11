@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.data.redis.core.RedisTemplate
 import org.springframework.data.redis.core.ValueOperations
 import org.springframework.stereotype.Repository
+import java.util.concurrent.TimeUnit
 
 @Repository
 class UserRedisRepository(
@@ -16,6 +17,6 @@ class UserRedisRepository(
         userId: String
     ) {
         val valueOperations: ValueOperations<String, String> = redisTemplate.opsForValue()
-        valueOperations.set(sessionId.value, userId)
+        valueOperations.set(sessionId.value, userId, 1L, TimeUnit.DAYS)
     }
 }

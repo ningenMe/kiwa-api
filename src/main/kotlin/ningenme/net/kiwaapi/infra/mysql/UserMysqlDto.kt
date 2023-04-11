@@ -1,4 +1,4 @@
-package ningenme.net.kiwaapi.infra
+package ningenme.net.kiwaapi.infra.mysql
 
 data class UserMysqlDto(
     var userId: String? = null,

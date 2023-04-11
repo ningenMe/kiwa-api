@@ -1,4 +1,4 @@
-package ningenme.net.kiwaapi.infra
+package ningenme.net.kiwaapi.infra.mysql
 
 import org.apache.ibatis.annotations.Insert
 import org.apache.ibatis.annotations.Mapper

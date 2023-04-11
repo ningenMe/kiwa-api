@@ -1,6 +1,6 @@
 package ningenme.net.kiwaapi.application.common
 
-import ningenme.net.kiwaapi.infra.UserMysqlRepository
+import ningenme.net.kiwaapi.infra.mysql.UserMysqlRepository
 import org.springframework.security.authentication.BadCredentialsException
 import org.springframework.security.core.userdetails.User
 import org.springframework.security.core.userdetails.UserDetails

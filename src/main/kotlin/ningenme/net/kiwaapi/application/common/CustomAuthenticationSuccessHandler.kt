@@ -3,21 +3,26 @@ package ningenme.net.kiwaapi.application.common
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
 import ningenme.net.kiwaapi.application.model.SessionId
+import ningenme.net.kiwaapi.infra.redis.UserRedisRepository
 import org.springframework.http.HttpStatus
 import org.springframework.security.core.Authentication
+import org.springframework.security.core.userdetails.User
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler
 import org.springframework.stereotype.Component
 
 @Component
-class CustomAuthenticationSuccessHandler : AuthenticationSuccessHandler {
+class CustomAuthenticationSuccessHandler(
+    private val userRedisRepository: UserRedisRepository
+) : AuthenticationSuccessHandler {
     override fun onAuthenticationSuccess(
         request: HttpServletRequest?,
         response: HttpServletResponse?,
         authentication: Authentication?
     ) {
         val (sessionId, cookie) = SessionId.of()
+        val user: User = authentication?.principal as User
 
-        //TODO sessionIdをredisに永続化
+        userRedisRepository.postUser(sessionId, user.username)
 
         response?.addCookie(cookie)
         response?.status = HttpStatus.OK.value()

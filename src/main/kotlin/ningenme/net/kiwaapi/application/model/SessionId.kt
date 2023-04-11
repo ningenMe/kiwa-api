@@ -5,7 +5,7 @@ import ningenme.net.kiwaapi.application.common.SecurityConfig
 import java.util.*
 
 data class SessionId(
-    private val value: String
+    val value: String
 ) {
     companion object {
         fun of(): Pair<SessionId, Cookie> {

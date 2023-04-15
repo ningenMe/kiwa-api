@@ -1,0 +1,18 @@
+title: UsersGetResponse
+type: object
+properties:
+  isLoggedIn:
+    type: boolean
+  userId:
+    type: string
+  authority:
+    type: object
+    properties:
+      comproCategory:
+        type: boolean
+    required:
+      - comproCategory
+required:
+  - isLoggedIn
+  - userId
+  - authority

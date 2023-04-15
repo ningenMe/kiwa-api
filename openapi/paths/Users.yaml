@@ -16,3 +16,15 @@ post:
         application/json:
           schema:
             $ref: '../responses/UsersPostResponse.yaml'
+get:
+  tags:
+    - users
+  parameters: [ ]
+  operationId: usersGet
+  responses:
+    '200':
+      description: ok
+      content:
+        application/json:
+          schema:
+            $ref: '../responses/UsersGetResponse.yaml'

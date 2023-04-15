@@ -12,11 +12,16 @@ class UserRedisRepository(
     @Qualifier(RedisConfig.SESSION_ID_USER_REDIS_TEMPLATE)
     private val redisTemplate: RedisTemplate<String, String>
 ) {
-    fun postUser(
+    fun postUserId(
         sessionId: SessionId,
         userId: String
     ) {
         val valueOperations: ValueOperations<String, String> = redisTemplate.opsForValue()
         valueOperations.set(sessionId.value, userId, 1L, TimeUnit.DAYS)
+    }
+
+    fun getUserId(sessionId: SessionId): String {
+        val valueOperations: ValueOperations<String, String> = redisTemplate.opsForValue()
+        return valueOperations.get(sessionId.value)!!
     }
 }

@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.security.web.SecurityFilterChain
+import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationProvider
 import org.springframework.web.cors.CorsConfiguration
 import org.springframework.web.cors.CorsConfigurationSource
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource
@@ -24,27 +25,37 @@ class SecurityConfig(
     private val customAuthenticationSuccessHandler: CustomAuthenticationSuccessHandler,
     private val customAuthenticationUserService: CustomAuthenticationUserService,
     private val authenticationConfiguration: AuthenticationConfiguration,
+    private val customAuthorizationUserService: CustomAuthorizationUserService,
     private val objectMapper: ObjectMapper
 ) {
 
     companion object {
         const val DOMAIN = "ningenme.net"
+        const val PATH_LOGIN = "/login"
+        const val PATH_HEALTHCHECK = "/healthcheck"
+        const val PATH_USERS = "/users"
+        val NO_AUTHENTICATED_ENDPOINT = listOf(
+            PATH_HEALTHCHECK to HttpMethod.GET,
+            PATH_LOGIN to HttpMethod.POST,
+            PATH_USERS to HttpMethod.POST
+        )
     }
 
     @Bean
     fun securityFilterChain(httpSecurity: HttpSecurity): SecurityFilterChain {
         httpSecurity
             .addFilter(customAuthenticationFilter())
+            .addFilter(customPreAuthenticatedProcessingFilter())
 
             .formLogin()
             .usernameParameter("userId")
             .passwordParameter("password")
-            .loginProcessingUrl("/login").permitAll()
+            .loginProcessingUrl(PATH_LOGIN).permitAll()
 
             .and()
             .authorizeHttpRequests()
-            .requestMatchers(HttpMethod.GET, "/healthcheck").permitAll()
-            .requestMatchers(HttpMethod.POST, "/users").permitAll()
+            .requestMatchers(HttpMethod.GET, PATH_HEALTHCHECK).permitAll()
+            .requestMatchers(HttpMethod.POST, PATH_USERS).permitAll()
             .anyRequest()
             .authenticated()
 
@@ -62,6 +73,7 @@ class SecurityConfig(
         return httpSecurity.build()
     }
 
+
     fun customAuthenticationFilter(): CustomAuthenticationFilter {
         val customAuthenticationFilter = CustomAuthenticationFilter(objectMapper)
         customAuthenticationFilter.setAuthenticationManager(authenticationConfiguration.authenticationManager)
@@ -69,6 +81,21 @@ class SecurityConfig(
         customAuthenticationFilter.setAuthenticationSuccessHandler(customAuthenticationSuccessHandler)
         return customAuthenticationFilter
     }
+
+    fun customPreAuthenticatedProcessingFilter(): CustomPreAuthenticatedProcessingFilter {
+        val customPreAuthenticatedProcessingFilter = CustomPreAuthenticatedProcessingFilter()
+        customPreAuthenticatedProcessingFilter.setAuthenticationManager(authenticationConfiguration.authenticationManager)
+        customPreAuthenticatedProcessingFilter.setRequiresAuthenticationRequestMatcher(CustomPreAuthenticatedMatcher())
+        return customPreAuthenticatedProcessingFilter
+    }
+
+    @Bean
+    fun preAuthenticatedAuthenticationProvider(): PreAuthenticatedAuthenticationProvider {
+        val preAuthenticatedAuthenticationProvider = PreAuthenticatedAuthenticationProvider()
+        preAuthenticatedAuthenticationProvider.setPreAuthenticatedUserDetailsService(customAuthorizationUserService)
+        return preAuthenticatedAuthenticationProvider
+    }
+
 
     fun daoAuthenticationProvider(): DaoAuthenticationProvider {
         val daoAuthenticationProvider = DaoAuthenticationProvider()

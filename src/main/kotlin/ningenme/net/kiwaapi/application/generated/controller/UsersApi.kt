@@ -5,6 +5,7 @@
 */
 package ningenme.net.kiwaapi.application.generated.controller
 
+import ningenme.net.kiwaapi.application.generated.view.UsersGetResponseView
 import ningenme.net.kiwaapi.application.generated.view.UsersPostRequestView
 import ningenme.net.kiwaapi.application.generated.view.UsersPostResponseView
 import io.swagger.v3.oas.annotations.*
@@ -37,6 +38,21 @@ import kotlin.collections.Map
 @Validated
 @RequestMapping("\${api.base-path:}")
 interface UsersApi {
+
+    @Operation(
+        summary = "",
+        operationId = "usersGet",
+        description = """""",
+        responses = [
+            ApiResponse(responseCode = "200", description = "ok", content = [Content(schema = Schema(implementation = UsersGetResponseView::class))])
+        ]
+    )
+    @RequestMapping(
+            method = [RequestMethod.GET],
+            value = ["/users"],
+            produces = ["application/json"]
+    )
+    fun usersGet(): ResponseEntity<UsersGetResponseView>
 
     @Operation(
         summary = "",

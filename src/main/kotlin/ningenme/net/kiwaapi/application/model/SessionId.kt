@@ -17,6 +17,16 @@ data class SessionId(
             return sessionId to cookie
         }
 
+        fun of(cookieArray: Array<Cookie>?): SessionId {
+            val cookieValue = try {
+                cookieArray?.first { it.name.equals(COOKIE_NAME) }
+                    ?.value
+            } catch (ex: Exception) {
+                ""
+            }
+            return SessionId(cookieValue ?: "")
+        }
+
         const val COOKIE_NAME: String = "NINGENME_NET_SESSION"
     }
 

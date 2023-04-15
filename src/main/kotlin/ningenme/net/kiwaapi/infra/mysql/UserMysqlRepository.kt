@@ -12,5 +12,4 @@ class UserMysqlRepository(private val userMysqlMapper: UserMysqlMapper) {
     fun getUser(userId: String): UserMysqlDto? {
         return userMysqlMapper.select(userId)
     }
-
 }

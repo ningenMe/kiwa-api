@@ -22,7 +22,7 @@ class CustomAuthenticationSuccessHandler(
         val (sessionId, cookie) = SessionId.of()
         val user: User = authentication?.principal as User
 
-        userRedisRepository.postUser(sessionId, user.username)
+        userRedisRepository.postUserId(sessionId, user.username)
 
         response?.addCookie(cookie)
         response?.status = HttpStatus.OK.value()

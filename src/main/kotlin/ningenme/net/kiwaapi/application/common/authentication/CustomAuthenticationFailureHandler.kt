@@ -1,4 +1,4 @@
-package ningenme.net.kiwaapi.application.common
+package ningenme.net.kiwaapi.application.common.authentication
 
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse

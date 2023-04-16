@@ -1,4 +1,4 @@
-package ningenme.net.kiwaapi.application.common
+package ningenme.net.kiwaapi.application.common.authentication
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import jakarta.servlet.http.HttpServletRequest

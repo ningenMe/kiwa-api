@@ -1,6 +1,14 @@
 package ningenme.net.kiwaapi.application.common
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import ningenme.net.kiwaapi.application.common.authentication.CustomAuthenticationFailureHandler
+import ningenme.net.kiwaapi.application.common.authentication.CustomAuthenticationFilter
+import ningenme.net.kiwaapi.application.common.authentication.CustomAuthenticationSuccessHandler
+import ningenme.net.kiwaapi.application.common.authentication.CustomAuthenticationUserService
+import ningenme.net.kiwaapi.application.common.authorization.CustomAuthenticationEntryPoint
+import ningenme.net.kiwaapi.application.common.authorization.CustomAuthorizationUserService
+import ningenme.net.kiwaapi.application.common.authorization.CustomPreAuthenticatedMatcher
+import ningenme.net.kiwaapi.application.common.authorization.CustomPreAuthenticatedProcessingFilter
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.HttpMethod
@@ -26,6 +34,7 @@ class SecurityConfig(
     private val customAuthenticationSuccessHandler: CustomAuthenticationSuccessHandler,
     private val customAuthenticationUserService: CustomAuthenticationUserService,
     private val customAuthorizationUserService: CustomAuthorizationUserService,
+    private val customAuthenticationEntryPoint: CustomAuthenticationEntryPoint,
     private val objectMapper: ObjectMapper
 ) {
 
@@ -66,6 +75,9 @@ class SecurityConfig(
 
             .and()
             .authenticationManager(authenticationManager)
+            .exceptionHandling()
+            .authenticationEntryPoint(customAuthenticationEntryPoint)
+            .and()
 
             .cors()
             .configurationSource(corsConfigurationSource())

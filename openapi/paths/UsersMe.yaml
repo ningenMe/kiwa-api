@@ -10,3 +10,9 @@ get:
         application/json:
           schema:
             $ref: '../responses/UsersMeGetResponse.yaml'
+    '401':
+      description: unauthenticated 401
+      content:
+        application/json:
+          schema:
+            $ref: '../responses/UnAuthenticated401.yaml'

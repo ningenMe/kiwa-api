@@ -22,6 +22,6 @@ class UserRedisRepository(
 
     fun getUserId(sessionId: SessionId): String {
         val valueOperations: ValueOperations<String, String> = redisTemplate.opsForValue()
-        return valueOperations.get(sessionId.value)!!
+        return valueOperations.get(sessionId.value) ?: ""
     }
 }

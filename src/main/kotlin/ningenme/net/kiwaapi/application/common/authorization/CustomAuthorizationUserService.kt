@@ -1,4 +1,4 @@
-package ningenme.net.kiwaapi.application.common
+package ningenme.net.kiwaapi.application.common.authorization
 
 import ningenme.net.kiwaapi.application.model.SessionId
 import ningenme.net.kiwaapi.infra.mysql.UserMysqlRepository

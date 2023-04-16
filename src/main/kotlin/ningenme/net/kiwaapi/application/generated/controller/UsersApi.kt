@@ -5,6 +5,7 @@
 */
 package ningenme.net.kiwaapi.application.generated.controller
 
+import ningenme.net.kiwaapi.application.generated.view.UnAuthenticated401View
 import ningenme.net.kiwaapi.application.generated.view.UsersMeGetResponseView
 import ningenme.net.kiwaapi.application.generated.view.UsersPostRequestView
 import ningenme.net.kiwaapi.application.generated.view.UsersPostResponseView
@@ -44,7 +45,8 @@ interface UsersApi {
         operationId = "usersGet",
         description = """""",
         responses = [
-            ApiResponse(responseCode = "200", description = "ok", content = [Content(schema = Schema(implementation = UsersMeGetResponseView::class))])
+            ApiResponse(responseCode = "200", description = "ok", content = [Content(schema = Schema(implementation = UsersMeGetResponseView::class))]),
+            ApiResponse(responseCode = "401", description = "unauthenticated 401", content = [Content(schema = Schema(implementation = UnAuthenticated401View::class))])
         ]
     )
     @RequestMapping(

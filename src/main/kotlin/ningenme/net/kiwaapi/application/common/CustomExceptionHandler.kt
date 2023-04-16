@@ -1,5 +1,7 @@
 package ningenme.net.kiwaapi.application.common
 
+import ningenme.net.kiwaapi.application.generated.view.InternalServerError500View
+import ningenme.net.kiwaapi.application.generated.view.UnAuthorized403View
 import org.slf4j.LoggerFactory
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -15,13 +17,17 @@ class CustomExceptionHandler {
     }
 
     @ExceptionHandler(AccessDeniedException::class)
-    fun handleAccessDeniedException(): ResponseEntity<String> {
-        return ResponseEntity.status(HttpStatus.FORBIDDEN).build()
+    fun handleAccessDeniedException(): ResponseEntity<Any> {
+        return ResponseEntity
+            .status(HttpStatus.FORBIDDEN)
+            .body(UnAuthorized403View(message = "unauthorized"))
     }
 
     @ExceptionHandler(Exception::class)
-    fun handleException(exception: java.lang.Exception): ResponseEntity<String> {
+    fun handleException(exception: java.lang.Exception): ResponseEntity<Any> {
         logger.error(exception.message)
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build()
+        return ResponseEntity
+            .status(HttpStatus.INTERNAL_SERVER_ERROR)
+            .body(InternalServerError500View(message = "error"))
     }
 }

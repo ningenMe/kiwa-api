@@ -4,9 +4,11 @@ src/main/kotlin/ningenme/net/kiwaapi/application/generated/controller/Healthchec
 src/main/kotlin/ningenme/net/kiwaapi/application/generated/controller/LoginApi.kt
 src/main/kotlin/ningenme/net/kiwaapi/application/generated/controller/UsersApi.kt
 src/main/kotlin/ningenme/net/kiwaapi/application/generated/view/HealthcheckGetResponseView.kt
+src/main/kotlin/ningenme/net/kiwaapi/application/generated/view/InternalServerError500View.kt
 src/main/kotlin/ningenme/net/kiwaapi/application/generated/view/LoginPostRequestView.kt
 src/main/kotlin/ningenme/net/kiwaapi/application/generated/view/LoginPostResponseView.kt
 src/main/kotlin/ningenme/net/kiwaapi/application/generated/view/UnAuthenticated401View.kt
+src/main/kotlin/ningenme/net/kiwaapi/application/generated/view/UnAuthorized403View.kt
 src/main/kotlin/ningenme/net/kiwaapi/application/generated/view/UsersMeGetResponseAuthorityView.kt
 src/main/kotlin/ningenme/net/kiwaapi/application/generated/view/UsersMeGetResponseView.kt
 src/main/kotlin/ningenme/net/kiwaapi/application/generated/view/UsersPostRequestView.kt

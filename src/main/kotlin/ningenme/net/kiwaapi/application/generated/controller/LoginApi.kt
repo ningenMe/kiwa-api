@@ -5,8 +5,11 @@
 */
 package ningenme.net.kiwaapi.application.generated.controller
 
+import ningenme.net.kiwaapi.application.generated.view.InternalServerError500View
 import ningenme.net.kiwaapi.application.generated.view.LoginPostRequestView
 import ningenme.net.kiwaapi.application.generated.view.LoginPostResponseView
+import ningenme.net.kiwaapi.application.generated.view.UnAuthenticated401View
+import ningenme.net.kiwaapi.application.generated.view.UnAuthorized403View
 import io.swagger.v3.oas.annotations.*
 import io.swagger.v3.oas.annotations.enums.*
 import io.swagger.v3.oas.annotations.media.*
@@ -43,7 +46,10 @@ interface LoginApi {
         operationId = "loginPost",
         description = """""",
         responses = [
-            ApiResponse(responseCode = "200", description = "ok", content = [Content(schema = Schema(implementation = LoginPostResponseView::class))])
+            ApiResponse(responseCode = "200", description = "ok", content = [Content(schema = Schema(implementation = LoginPostResponseView::class))]),
+            ApiResponse(responseCode = "401", description = "unauthenticated 401", content = [Content(schema = Schema(implementation = UnAuthenticated401View::class))]),
+            ApiResponse(responseCode = "403", description = "unauthenticated 401", content = [Content(schema = Schema(implementation = UnAuthorized403View::class))]),
+            ApiResponse(responseCode = "500", description = "unauthenticated 401", content = [Content(schema = Schema(implementation = InternalServerError500View::class))])
         ]
     )
     @RequestMapping(

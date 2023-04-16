@@ -84,7 +84,19 @@ tasks.register("typescriptClientGenerate", GenerateTask::class) {
     group = "openapi tools"
     generatorName.set("typescript-axios")
     inputSpec.set("$rootDir/openapi/openapi.yaml")
-    outputDir.set("$rootDir/client")
+    outputDir.set("$rootDir/typescript-axios-client")
+
+    configOptions.set(
+        mutableMapOf(
+            "useTags" to "true",
+        )
+    )
+}
+tasks.register("goClientGenerate", GenerateTask::class) {
+    group = "openapi tools"
+    generatorName.set("go")
+    inputSpec.set("$rootDir/openapi/openapi.yaml")
+    outputDir.set("$rootDir/go-client")
 
     configOptions.set(
         mutableMapOf(

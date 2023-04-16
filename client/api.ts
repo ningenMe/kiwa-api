@@ -36,6 +36,141 @@ export interface HealthcheckGetResponse {
      */
     'message': string;
 }
+/**
+ * 
+ * @export
+ * @interface InternalServerError500
+ */
+export interface InternalServerError500 {
+    /**
+     * 
+     * @type {string}
+     * @memberof InternalServerError500
+     */
+    'message': string;
+}
+/**
+ * 
+ * @export
+ * @interface LoginPostRequest
+ */
+export interface LoginPostRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof LoginPostRequest
+     */
+    'userId': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof LoginPostRequest
+     */
+    'password': string;
+}
+/**
+ * 
+ * @export
+ * @interface LoginPostResponse
+ */
+export interface LoginPostResponse {
+    /**
+     * 
+     * @type {string}
+     * @memberof LoginPostResponse
+     */
+    'message': string;
+}
+/**
+ * 
+ * @export
+ * @interface UnAuthenticated401
+ */
+export interface UnAuthenticated401 {
+    /**
+     * 
+     * @type {string}
+     * @memberof UnAuthenticated401
+     */
+    'message': string;
+}
+/**
+ * 
+ * @export
+ * @interface UnAuthorized403
+ */
+export interface UnAuthorized403 {
+    /**
+     * 
+     * @type {string}
+     * @memberof UnAuthorized403
+     */
+    'message': string;
+}
+/**
+ * 
+ * @export
+ * @interface UsersMeGetResponse
+ */
+export interface UsersMeGetResponse {
+    /**
+     * 
+     * @type {string}
+     * @memberof UsersMeGetResponse
+     */
+    'userId': string;
+    /**
+     * 
+     * @type {UsersMeGetResponseAuthority}
+     * @memberof UsersMeGetResponse
+     */
+    'authority': UsersMeGetResponseAuthority;
+}
+/**
+ * 
+ * @export
+ * @interface UsersMeGetResponseAuthority
+ */
+export interface UsersMeGetResponseAuthority {
+    /**
+     * 
+     * @type {boolean}
+     * @memberof UsersMeGetResponseAuthority
+     */
+    'comproCategory': boolean;
+}
+/**
+ * 
+ * @export
+ * @interface UsersPostRequest
+ */
+export interface UsersPostRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof UsersPostRequest
+     */
+    'userId': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UsersPostRequest
+     */
+    'password': string;
+}
+/**
+ * 
+ * @export
+ * @interface UsersPostResponse
+ */
+export interface UsersPostResponse {
+    /**
+     * 
+     * @type {string}
+     * @memberof UsersPostResponse
+     */
+    'message': string;
+}
 
 /**
  * HealthcheckApi - axios parameter creator
@@ -48,7 +183,7 @@ export const HealthcheckApiAxiosParamCreator = function (configuration?: Configu
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        healthGet: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        healthcheckGet: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/healthcheck`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -87,8 +222,8 @@ export const HealthcheckApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async healthGet(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<HealthcheckGetResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.healthGet(options);
+        async healthcheckGet(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<HealthcheckGetResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.healthcheckGet(options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -106,8 +241,8 @@ export const HealthcheckApiFactory = function (configuration?: Configuration, ba
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        healthGet(options?: any): AxiosPromise<HealthcheckGetResponse> {
-            return localVarFp.healthGet(options).then((request) => request(axios, basePath));
+        healthcheckGet(options?: any): AxiosPromise<HealthcheckGetResponse> {
+            return localVarFp.healthcheckGet(options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -125,8 +260,270 @@ export class HealthcheckApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof HealthcheckApi
      */
-    public healthGet(options?: AxiosRequestConfig) {
-        return HealthcheckApiFp(this.configuration).healthGet(options).then((request) => request(this.axios, this.basePath));
+    public healthcheckGet(options?: AxiosRequestConfig) {
+        return HealthcheckApiFp(this.configuration).healthcheckGet(options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+/**
+ * LoginApi - axios parameter creator
+ * @export
+ */
+export const LoginApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @param {LoginPostRequest} loginPostRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        loginPost: async (loginPostRequest: LoginPostRequest, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'loginPostRequest' is not null or undefined
+            assertParamExists('loginPost', 'loginPostRequest', loginPostRequest)
+            const localVarPath = `/login`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(loginPostRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * LoginApi - functional programming interface
+ * @export
+ */
+export const LoginApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = LoginApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * 
+         * @param {LoginPostRequest} loginPostRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async loginPost(loginPostRequest: LoginPostRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<LoginPostResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.loginPost(loginPostRequest, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+    }
+};
+
+/**
+ * LoginApi - factory interface
+ * @export
+ */
+export const LoginApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = LoginApiFp(configuration)
+    return {
+        /**
+         * 
+         * @param {LoginPostRequest} loginPostRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        loginPost(loginPostRequest: LoginPostRequest, options?: any): AxiosPromise<LoginPostResponse> {
+            return localVarFp.loginPost(loginPostRequest, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * LoginApi - object-oriented interface
+ * @export
+ * @class LoginApi
+ * @extends {BaseAPI}
+ */
+export class LoginApi extends BaseAPI {
+    /**
+     * 
+     * @param {LoginPostRequest} loginPostRequest 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof LoginApi
+     */
+    public loginPost(loginPostRequest: LoginPostRequest, options?: AxiosRequestConfig) {
+        return LoginApiFp(this.configuration).loginPost(loginPostRequest, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+/**
+ * UsersApi - axios parameter creator
+ * @export
+ */
+export const UsersApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        usersGet: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/users/me`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {UsersPostRequest} usersPostRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        usersPost: async (usersPostRequest: UsersPostRequest, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'usersPostRequest' is not null or undefined
+            assertParamExists('usersPost', 'usersPostRequest', usersPostRequest)
+            const localVarPath = `/users`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(usersPostRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * UsersApi - functional programming interface
+ * @export
+ */
+export const UsersApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = UsersApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async usersGet(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UsersMeGetResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.usersGet(options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {UsersPostRequest} usersPostRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async usersPost(usersPostRequest: UsersPostRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UsersPostResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.usersPost(usersPostRequest, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+    }
+};
+
+/**
+ * UsersApi - factory interface
+ * @export
+ */
+export const UsersApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = UsersApiFp(configuration)
+    return {
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        usersGet(options?: any): AxiosPromise<UsersMeGetResponse> {
+            return localVarFp.usersGet(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {UsersPostRequest} usersPostRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        usersPost(usersPostRequest: UsersPostRequest, options?: any): AxiosPromise<UsersPostResponse> {
+            return localVarFp.usersPost(usersPostRequest, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * UsersApi - object-oriented interface
+ * @export
+ * @class UsersApi
+ * @extends {BaseAPI}
+ */
+export class UsersApi extends BaseAPI {
+    /**
+     * 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UsersApi
+     */
+    public usersGet(options?: AxiosRequestConfig) {
+        return UsersApiFp(this.configuration).usersGet(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {UsersPostRequest} usersPostRequest 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UsersApi
+     */
+    public usersPost(usersPostRequest: UsersPostRequest, options?: AxiosRequestConfig) {
+        return UsersApiFp(this.configuration).usersPost(usersPostRequest, options).then((request) => request(this.axios, this.basePath));
     }
 }
 

@@ -4,8 +4,9 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.HttpMethod
+import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider
-import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
@@ -24,7 +25,6 @@ class SecurityConfig(
     private val customAuthenticationFailureHandler: CustomAuthenticationFailureHandler,
     private val customAuthenticationSuccessHandler: CustomAuthenticationSuccessHandler,
     private val customAuthenticationUserService: CustomAuthenticationUserService,
-    private val authenticationConfiguration: AuthenticationConfiguration,
     private val customAuthorizationUserService: CustomAuthorizationUserService,
     private val objectMapper: ObjectMapper
 ) {
@@ -42,10 +42,15 @@ class SecurityConfig(
     }
 
     @Bean
-    fun securityFilterChain(httpSecurity: HttpSecurity): SecurityFilterChain {
+    fun securityFilterChain(
+        httpSecurity: HttpSecurity,
+        authenticationManager: AuthenticationManager,
+        customAuthenticationFilter: CustomAuthenticationFilter,
+        customPreAuthenticatedProcessingFilter: CustomPreAuthenticatedProcessingFilter
+    ): SecurityFilterChain {
         httpSecurity
-            .addFilter(customAuthenticationFilter())
-            .addFilter(customPreAuthenticatedProcessingFilter())
+            .addFilter(customAuthenticationFilter)
+            .addFilter(customPreAuthenticatedProcessingFilter)
 
             .formLogin()
             .usernameParameter("userId")
@@ -60,6 +65,8 @@ class SecurityConfig(
             .authenticated()
 
             .and()
+            .authenticationManager(authenticationManager)
+
             .cors()
             .configurationSource(corsConfigurationSource())
 
@@ -67,29 +74,50 @@ class SecurityConfig(
             .csrf()
             .disable()
 
-            .authenticationProvider(daoAuthenticationProvider())
-
-
         return httpSecurity.build()
     }
 
-
-    fun customAuthenticationFilter(): CustomAuthenticationFilter {
+    @Bean
+    fun customAuthenticationFilter(
+        authenticationManager: AuthenticationManager
+    ): CustomAuthenticationFilter {
         val customAuthenticationFilter = CustomAuthenticationFilter(objectMapper)
-        customAuthenticationFilter.setAuthenticationManager(authenticationConfiguration.authenticationManager)
+        customAuthenticationFilter.setAuthenticationManager(authenticationManager)
         customAuthenticationFilter.setAuthenticationFailureHandler(customAuthenticationFailureHandler)
         customAuthenticationFilter.setAuthenticationSuccessHandler(customAuthenticationSuccessHandler)
         return customAuthenticationFilter
     }
 
-    fun customPreAuthenticatedProcessingFilter(): CustomPreAuthenticatedProcessingFilter {
+    @Bean
+    fun customPreAuthenticatedProcessingFilter(
+        authenticationManager: AuthenticationManager
+    ): CustomPreAuthenticatedProcessingFilter {
         val customPreAuthenticatedProcessingFilter = CustomPreAuthenticatedProcessingFilter()
-        customPreAuthenticatedProcessingFilter.setAuthenticationManager(authenticationConfiguration.authenticationManager)
+        customPreAuthenticatedProcessingFilter.setAuthenticationManager(authenticationManager)
         customPreAuthenticatedProcessingFilter.setRequiresAuthenticationRequestMatcher(CustomPreAuthenticatedMatcher())
         return customPreAuthenticatedProcessingFilter
     }
 
+
+    fun corsConfigurationSource(): CorsConfigurationSource {
+        val corsConfiguration = CorsConfiguration()
+        corsConfiguration.allowedOrigins = listOf("https://$DOMAIN")
+        corsConfiguration.allowedMethods = listOf(HttpMethod.GET.name(), HttpMethod.POST.name())
+        val urlBasedCorsConfigurationSource = UrlBasedCorsConfigurationSource()
+        urlBasedCorsConfigurationSource.registerCorsConfiguration("/**", corsConfiguration)
+        return urlBasedCorsConfigurationSource
+    }
+
     @Bean
+    fun authenticationManager(httpSecurity: HttpSecurity): AuthenticationManager {
+        val authenticationManagerBuilder =
+            httpSecurity.sharedObjects[AuthenticationManagerBuilder::class.java] as AuthenticationManagerBuilder
+        authenticationManagerBuilder
+            .authenticationProvider(preAuthenticatedAuthenticationProvider())
+            .authenticationProvider(daoAuthenticationProvider())
+        return authenticationManagerBuilder.build()
+    }
+
     fun preAuthenticatedAuthenticationProvider(): PreAuthenticatedAuthenticationProvider {
         val preAuthenticatedAuthenticationProvider = PreAuthenticatedAuthenticationProvider()
         preAuthenticatedAuthenticationProvider.setPreAuthenticatedUserDetailsService(customAuthorizationUserService)
@@ -104,16 +132,9 @@ class SecurityConfig(
         return daoAuthenticationProvider
     }
 
-    fun corsConfigurationSource(): CorsConfigurationSource {
-        val corsConfiguration = CorsConfiguration()
-        corsConfiguration.allowedOrigins = listOf("https://$DOMAIN")
-        corsConfiguration.allowedMethods = listOf(HttpMethod.GET.name(), HttpMethod.POST.name())
-        val urlBasedCorsConfigurationSource = UrlBasedCorsConfigurationSource()
-        urlBasedCorsConfigurationSource.registerCorsConfiguration("/**", corsConfiguration)
-        return urlBasedCorsConfigurationSource
-    }
 
     @Bean
     fun passwordEncoder(): PasswordEncoder = BCryptPasswordEncoder()
+
 
 }

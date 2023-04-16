@@ -1,5 +1,6 @@
 package ningenme.net.kiwaapi.application.common.authentication
 
+import ningenme.net.kiwaapi.application.model.Authority
 import ningenme.net.kiwaapi.infra.mysql.UserMysqlRepository
 import org.springframework.security.authentication.BadCredentialsException
 import org.springframework.security.core.userdetails.User
@@ -19,6 +20,10 @@ class CustomAuthenticationUserService(
         }
         val userMysqlDto =
             userMysqlRepository.getUser(username) ?: throw BadCredentialsException("$username is not found")
-        return User(userMysqlDto.userId, userMysqlDto.encryptedPassword, listOf())
+        return User(
+            userMysqlDto.userId,
+            userMysqlDto.encryptedPassword,
+            Authority.of(userMysqlDto.authorityMysqlDtoList)
+        )
     }
 }

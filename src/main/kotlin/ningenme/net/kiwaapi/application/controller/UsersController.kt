@@ -5,6 +5,7 @@ import ningenme.net.kiwaapi.application.generated.view.UsersMeGetResponseAuthori
 import ningenme.net.kiwaapi.application.generated.view.UsersMeGetResponseView
 import ningenme.net.kiwaapi.application.generated.view.UsersPostRequestView
 import ningenme.net.kiwaapi.application.generated.view.UsersPostResponseView
+import ningenme.net.kiwaapi.application.model.Authority
 import ningenme.net.kiwaapi.infra.mysql.UserMysqlRepository
 import org.springframework.http.ResponseEntity
 import org.springframework.security.core.context.SecurityContextHolder
@@ -23,7 +24,7 @@ class UsersController(
             UsersMeGetResponseView(
                 userId = user.username,
                 authority = UsersMeGetResponseAuthorityView(
-                    comproCategory = false
+                    comproCategory = Authority.COMPRO_CATEGORY.isAuthorized(user.authorities)
                 )
             )
         )

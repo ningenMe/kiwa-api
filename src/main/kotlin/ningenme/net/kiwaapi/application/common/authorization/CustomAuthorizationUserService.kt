@@ -1,5 +1,6 @@
 package ningenme.net.kiwaapi.application.common.authorization
 
+import ningenme.net.kiwaapi.application.model.Authority
 import ningenme.net.kiwaapi.application.model.SessionId
 import ningenme.net.kiwaapi.infra.mysql.UserMysqlRepository
 import ningenme.net.kiwaapi.infra.redis.UserRedisRepository
@@ -21,7 +22,11 @@ class CustomAuthorizationUserService(
         val userId = userRedisRepository.getUserId(sessionId)
         val userMysqlDto =
             userMysqlRepository.getUser(userId) ?: throw BadCredentialsException("$userId is not found")
-        return User(userMysqlDto.userId, userMysqlDto.encryptedPassword, listOf())
+        return User(
+            userMysqlDto.userId,
+            userMysqlDto.encryptedPassword,
+            Authority.of(userMysqlDto.authorityMysqlDtoList)
+        )
     }
 
 }

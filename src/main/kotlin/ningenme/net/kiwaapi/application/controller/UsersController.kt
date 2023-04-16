@@ -1,8 +1,8 @@
 package ningenme.net.kiwaapi.application.controller
 
 import ningenme.net.kiwaapi.application.generated.controller.UsersApi
-import ningenme.net.kiwaapi.application.generated.view.UsersGetResponseAuthorityView
-import ningenme.net.kiwaapi.application.generated.view.UsersGetResponseView
+import ningenme.net.kiwaapi.application.generated.view.UsersMeGetResponseAuthorityView
+import ningenme.net.kiwaapi.application.generated.view.UsersMeGetResponseView
 import ningenme.net.kiwaapi.application.generated.view.UsersPostRequestView
 import ningenme.net.kiwaapi.application.generated.view.UsersPostResponseView
 import ningenme.net.kiwaapi.infra.mysql.UserMysqlRepository
@@ -17,13 +17,12 @@ class UsersController(
     private val userMysqlRepository: UserMysqlRepository,
     private val passwordEncoder: PasswordEncoder
 ) : UsersApi {
-    override fun usersGet(): ResponseEntity<UsersGetResponseView> {
+    override fun usersGet(): ResponseEntity<UsersMeGetResponseView> {
         val user = SecurityContextHolder.getContext().authentication.principal as User
         return ResponseEntity.ok(
-            UsersGetResponseView(
-                isLoggedIn = true,
+            UsersMeGetResponseView(
                 userId = user.username,
-                authority = UsersGetResponseAuthorityView(
+                authority = UsersMeGetResponseAuthorityView(
                     comproCategory = false
                 )
             )

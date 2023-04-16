@@ -1,8 +1,6 @@
-title: UsersGetResponse
+title: UsersMeGetResponse
 type: object
 properties:
-  isLoggedIn:
-    type: boolean
   userId:
     type: string
   authority:
@@ -13,6 +11,5 @@ properties:
     required:
       - comproCategory
 required:
-  - isLoggedIn
   - userId
   - authority

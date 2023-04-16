@@ -6,8 +6,8 @@ src/main/kotlin/ningenme/net/kiwaapi/application/generated/controller/UsersApi.k
 src/main/kotlin/ningenme/net/kiwaapi/application/generated/view/HealthcheckGetResponseView.kt
 src/main/kotlin/ningenme/net/kiwaapi/application/generated/view/LoginPostRequestView.kt
 src/main/kotlin/ningenme/net/kiwaapi/application/generated/view/LoginPostResponseView.kt
-src/main/kotlin/ningenme/net/kiwaapi/application/generated/view/UsersGetResponseAuthorityView.kt
-src/main/kotlin/ningenme/net/kiwaapi/application/generated/view/UsersGetResponseView.kt
+src/main/kotlin/ningenme/net/kiwaapi/application/generated/view/UsersMeGetResponseAuthorityView.kt
+src/main/kotlin/ningenme/net/kiwaapi/application/generated/view/UsersMeGetResponseView.kt
 src/main/kotlin/ningenme/net/kiwaapi/application/generated/view/UsersPostRequestView.kt
 src/main/kotlin/ningenme/net/kiwaapi/application/generated/view/UsersPostResponseView.kt
 src/main/kotlin/org/openapitools/SpringDocConfiguration.kt

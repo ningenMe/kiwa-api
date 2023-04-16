@@ -5,7 +5,7 @@
 */
 package ningenme.net.kiwaapi.application.generated.controller
 
-import ningenme.net.kiwaapi.application.generated.view.UsersGetResponseView
+import ningenme.net.kiwaapi.application.generated.view.UsersMeGetResponseView
 import ningenme.net.kiwaapi.application.generated.view.UsersPostRequestView
 import ningenme.net.kiwaapi.application.generated.view.UsersPostResponseView
 import io.swagger.v3.oas.annotations.*
@@ -44,15 +44,15 @@ interface UsersApi {
         operationId = "usersGet",
         description = """""",
         responses = [
-            ApiResponse(responseCode = "200", description = "ok", content = [Content(schema = Schema(implementation = UsersGetResponseView::class))])
+            ApiResponse(responseCode = "200", description = "ok", content = [Content(schema = Schema(implementation = UsersMeGetResponseView::class))])
         ]
     )
     @RequestMapping(
             method = [RequestMethod.GET],
-            value = ["/users"],
+            value = ["/users/me"],
             produces = ["application/json"]
     )
-    fun usersGet(): ResponseEntity<UsersGetResponseView>
+    fun usersGet(): ResponseEntity<UsersMeGetResponseView>
 
     @Operation(
         summary = "",

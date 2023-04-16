@@ -1,0 +1,12 @@
+get:
+  tags:
+    - users
+  parameters: [ ]
+  operationId: usersGet
+  responses:
+    '200':
+      description: ok
+      content:
+        application/json:
+          schema:
+            $ref: '../responses/UsersMeGetResponse.yaml'

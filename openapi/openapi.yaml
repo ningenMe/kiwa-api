@@ -10,10 +10,7 @@ paths:
     $ref: './paths/Healthcheck.yaml'
   /users:
     $ref: './paths/Users.yaml'
+  /users/me:
+    $ref: './paths/UsersMe.yaml'
   /login:
     $ref: './paths/Login.yaml'
-# TODO
-# POST /users
-# POST /login
-# GET /users/me
-# POST /logout

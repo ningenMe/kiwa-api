@@ -15,7 +15,7 @@ class UserMysqlRepository(
     fun getUser(userId: String): UserMysqlDto? {
         val authorityMysqlDtoList = authorityMysqlMapper.select(userId)
         val userMysqlDto = userMysqlMapper.select(userId)
-        userMysqlDto.authorityMysqlDtoList = authorityMysqlDtoList
+        userMysqlDto?.authorityMysqlDtoList = authorityMysqlDtoList
         return userMysqlDto
     }
 }

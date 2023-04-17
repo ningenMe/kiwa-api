@@ -2,6 +2,7 @@ package ningenme.net.kiwaapi.application.model
 
 import jakarta.servlet.http.Cookie
 import ningenme.net.kiwaapi.application.common.SecurityConfig
+import java.time.Duration
 import java.util.*
 
 data class SessionId(
@@ -13,7 +14,8 @@ data class SessionId(
             val cookie = Cookie(COOKIE_NAME, sessionId.value)
             cookie.isHttpOnly = true
             cookie.secure = true
-            cookie.domain = SecurityConfig.DOMAIN;
+            cookie.domain = SecurityConfig.DOMAIN
+            cookie.maxAge = EXPIRE_DURATION.toSeconds().toInt()
             return sessionId to cookie
         }
 
@@ -27,7 +29,8 @@ data class SessionId(
             return SessionId(cookieValue ?: "")
         }
 
-        const val COOKIE_NAME: String = "NINGENME_NET_SESSION"
+        private const val COOKIE_NAME: String = "NINGENME_NET_SESSION"
+        val EXPIRE_DURATION: Duration = Duration.ofDays(7L)
     }
 
 }

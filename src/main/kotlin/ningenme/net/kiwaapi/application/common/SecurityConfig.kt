@@ -113,10 +113,11 @@ class SecurityConfig(
 
     fun corsConfigurationSource(): CorsConfigurationSource {
         val corsConfiguration = CorsConfiguration()
-        corsConfiguration.allowedOrigins = listOf("https://$DOMAIN")
-        corsConfiguration.allowedOriginPatterns = listOf("http://localhost:[*]")
-        corsConfiguration.allowedMethods = listOf(HttpMethod.GET.name(), HttpMethod.POST.name())
+        corsConfiguration.allowedOrigins = listOf("https://$DOMAIN", "http://localhost:3000")
+        corsConfiguration.allowedMethods =
+            listOf(HttpMethod.GET.name(), HttpMethod.POST.name(), HttpMethod.OPTIONS.name())
         corsConfiguration.allowCredentials = true
+        corsConfiguration.allowedHeaders = listOf("*")
         val urlBasedCorsConfigurationSource = UrlBasedCorsConfigurationSource()
         urlBasedCorsConfigurationSource.registerCorsConfiguration("/**", corsConfiguration)
         return urlBasedCorsConfigurationSource

@@ -114,6 +114,7 @@ class SecurityConfig(
     fun corsConfigurationSource(): CorsConfigurationSource {
         val corsConfiguration = CorsConfiguration()
         corsConfiguration.allowedOrigins = listOf("https://$DOMAIN", "http://localhost:3000")
+        corsConfiguration.allowedOriginPatterns = listOf("https://*.$DOMAIN")
         corsConfiguration.allowedMethods =
             listOf(HttpMethod.GET.name(), HttpMethod.POST.name(), HttpMethod.OPTIONS.name())
         corsConfiguration.allowCredentials = true

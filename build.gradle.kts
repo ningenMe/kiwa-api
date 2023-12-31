@@ -22,8 +22,8 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-data-redis")
 
-    implementation("org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.1")
-    implementation("com.mysql:mysql-connector-j:8.0.32")
+    implementation("org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.2")
+    implementation("com.mysql:mysql-connector-j:8.2.0")
 
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
@@ -32,9 +32,6 @@ dependencies {
     compileOnly("io.swagger.core.v3:swagger-annotations:2.2.8")
     compileOnly("io.swagger.core.v3:swagger-models:2.2.8")
     implementation("jakarta.validation:jakarta.validation-api:3.0.2")
-
-//    implementation("org.springframework.session:spring-session-data-redis:3.0.0")
-//    implementation("io.lettuce:lettuce-core:6.2.3.RELEASE")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.security:spring-security-test")

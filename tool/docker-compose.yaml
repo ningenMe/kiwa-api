@@ -1,9 +1,9 @@
 version: '3'
 
 services:
-  auth-mysql:
+  ningenme-mysql:
     image: mysql:8.0
-    container_name: mysql-auth
+    container_name: ningenme-mysql
     environment:
       MYSQL_DATABASE: auth
       MYSQL_ROOT_PASSWORD: password
@@ -13,7 +13,8 @@ services:
       - ./:/docker-entrypoint-initdb.d
     ports:
       - "3306:3306"
-  auth-redis:
+  ningenme-redis:
+    container_name: ningenme-redis
     image: redis:7.0
     ports:
       - "6379:6379"

@@ -7,6 +7,10 @@ spring:
     username: ${NINGENME_MYSQL_MASTER_USER_USERNAME:root}
     password: ${NINGENME_MYSQL_MASTER_USER_PASSWORD:password}
     driver-class-name: com.mysql.cj.jdbc.Driver
+  data:
+    redis:
+      host: ${NINGENME_REDIS_HOST:localhost}
+      port: 6379
 mybatis:
   configuration:
     map-underscore-to-camel-case: true
